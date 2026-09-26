@@ -1,0 +1,40 @@
+---
+import { url } from '../../utils/url';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const milestones = (await getCollection('milestones')).sort(
+  (a, b) => (a.data.date?.valueOf() ?? 0) - (b.data.date?.valueOf() ?? 0)
+);
+---
+
+<Layout title="Milestones · ProSense" activeTab="milestones">
+  <div class="panel-head">
+    <span class="eyebrow-label">Progress</span>
+    <h2>Milestones</h2>
+    <p>The phases of the project and what each one delivers.</p>
+  </div>
+
+  {milestones.length === 0 ? (
+    <div class="empty-state">
+      <strong>No milestones yet</strong>
+      Milestones will appear here as the project progresses.
+    </div>
+  ) : (
+    <div class="card-grid">
+      {milestones.map((m, i) => (
+        <a class="card reveal" style={`--i:${i}`} href={url(`/milestones/${m.slug}`)}>
+          {m.data.image && <img src={m.data.image.src} alt={m.data.title} />}
+          <div class="body">
+            <div class="card-top-row">
+              <span class="index-num">{String(i + 1).padStart(2, '0')}</span>
+              {m.data.phase && <span class="eyebrow">{m.data.phase}</span>}
+            </div>
+            <h3>{m.data.title}</h3>
+            <p>{m.data.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</Layout>

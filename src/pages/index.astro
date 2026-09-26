@@ -1,0 +1,141 @@
+---
+import { url } from '../utils/url';
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const milestones = (await getCollection('milestones')).sort(
+  (a, b) => (a.data.date?.valueOf() ?? 0) - (b.data.date?.valueOf() ?? 0)
+);
+
+const teamDir = path.resolve('./public/team');
+const team = [
+  { name: 'David Cálix', initials: 'DC', file: 'david-calix' },
+  { name: 'António Videira', initials: 'AV', file: 'antonio-videira' },
+  { name: 'Tiago Oliveira', initials: 'TO', file: 'tiago-oliveira' },
+  { name: 'Diogo Ruivo', initials: 'DR', file: 'diogo-ruivo' },
+  { name: 'Gabriel Riquito', initials: 'GR', file: 'gabriel-riquito' },
+].map((m) => {
+  const found = ['.jpg', '.jpeg', '.png', '.webp'].find((ext) =>
+    fs.existsSync(path.join(teamDir, m.file + ext))
+  );
+  return { ...m, photo: found ? url(`/team/${m.file}${found}`) : null };
+});
+
+const features = [
+  { title: 'MDL exercise configuration', text: 'Coaches describe each exercise once, in the Movement Description Language, and every session is scored the same way.' },
+  { title: 'Multi-algorithm pose estimation', text: 'MediaPipe and YOLO Pose run behind a plugin architecture, so new algorithms slot in without touching the core.' },
+  { title: 'Automatic performance metrics', text: 'Reps, work/rest time, cadence and range of motion, extracted straight from a smartphone video.' },
+  { title: 'Polar H10 integration', text: 'Sync heart-rate data with each session to relate external load to internal load.' },
+];
+
+const advisors = {
+  supervisors: [
+    { name: 'António J. R. Neves', href: 'https://www.ua.pt/en/p/16606785' },
+    { name: 'Daniel Canedo' },
+  ],
+  collaborators: [{ name: 'Lúcia Sousa' }, { name: 'Pedro Santos' }],
+};
+
+---
+
+<Layout title="ProSense" activeTab="home">
+  <section class="hero">
+    <div class="hero-in" style="--i:0">
+      <h1>The platform that's <span class="accent">here to change</span> your training.</h1>
+      <p class="lede">ProSense turns everyday training video into objective performance data — reps, tempo, range of motion and more — without a single sensor strapped to the athlete.</p>
+    </div>
+    <div class="hero-photo hero-in" style="--i:1">
+      <img class="img-light" src={url('/hero-photo.png')} alt="Athlete mid-rep, tracked by pose estimation" />
+      <img class="img-dark" src={url('/hero-photo-dark.png')} alt="Athlete mid-rep, tracked by pose estimation" />
+    </div>
+  </section>
+
+
+  <div class="section-head reveal">
+    <h2>Features</h2>
+  </div>
+  <div class="features-grid">
+    {features.map((f, i) => (
+      <div class="feature reveal" style={`--i:${i}`}>
+        <h3>{f.title}</h3>
+        <p>{f.text}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="section-head reveal">
+    <h2>Team</h2>
+    <p>PEI 2026/2027 · Universidade de Aveiro</p>
+  </div>
+  <div class="team-grid">
+    {team.map((m, i) => (
+      <div class="member reveal" style={`--i:${i}`}>
+        <div class="member-photo">
+          {m.photo ? (
+            <img src={m.photo} alt={m.name} loading="lazy" />
+          ) : (
+            <span class="member-initials">{m.initials}</span>
+          )}
+        </div>
+        <h3 class="member-name">{m.name}</h3>
+      </div>
+    ))}
+  </div>
+
+  <div class="section-head reveal">
+    <h2>Milestones</h2>
+    <a class="section-link" href={url('/milestones')}>See all milestones &rarr;</a>
+  </div>
+  {milestones.length === 0 ? (
+    <div class="empty-state reveal" style="--i:0">
+      <strong>No milestones yet</strong>
+      Milestones will appear here as the project progresses.
+    </div>
+  ) : (
+    <div class="card-grid">
+      {milestones.map((m, i) => (
+        <a class="card reveal" style={`--i:${i}`} href={url(`/milestones/${m.slug}`)}>
+          {m.data.image && <img src={m.data.image.src} alt={m.data.title} />}
+          <div class="body">
+            <div class="card-top-row">
+              <span class="index-num">{String(i + 1).padStart(2, '0')}</span>
+              {m.data.phase && <span class="eyebrow">{m.data.phase}</span>}
+            </div>
+            <h3>{m.data.title}</h3>
+            <p>{m.data.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+
+  <div class="section-head reveal">
+    <h2>Advisors</h2>
+  </div>
+  <div class="advisors-grid">
+    <div class="adv-col reveal" style="--i:0">
+      <h4>Supervisors</h4>
+      <ul>
+        {advisors.supervisors.map((p) =>
+          p.href ? (
+            <li><a href={p.href} target="_blank" rel="noopener">{p.name}</a></li>
+          ) : (
+            <li>{p.name}</li>
+          )
+        )}
+      </ul>
+    </div>
+    <div class="adv-col reveal" style="--i:1">
+      <h4>Collaborators</h4>
+      <ul>
+        {advisors.collaborators.map((p) => <li>{p.name}</li>)}
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .accent{color:var(--orange);}
+</style>

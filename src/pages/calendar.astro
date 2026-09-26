@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const semesters = [
+  {
+    title: '1st semester',
+    rows: [
+      'Requirements gathering + system modelling (WP1–WP2)',
+      'Web platform foundations: auth, core data model (WP3 start)',
+      'Processing infrastructure + plugin architecture (WP4)',
+    ],
+  },
+  {
+    title: '2nd semester',
+    rows: [
+      'Computer-vision integration + mobile app (WP5–WP6)',
+      'Visualisation & analysis dashboard (WP7)',
+      'Testing, validation on MARE Box data (WP8)',
+      'Documentation + final delivery (WP9)',
+    ],
+  },
+];
+---
+
+<Layout title="Calendar · ProSense" activeTab="calendar">
+  <div class="panel-head">
+    <span class="eyebrow-label">Schedule</span>
+    <h2>Calendar</h2>
+    <p>Target sequencing of the nine work packages across the academic year. Exact dates to be agreed with the team and supervisors.</p>
+  </div>
+
+  {semesters.map((sem, si) => (
+    <div class="term reveal" style={`--i:${si}`}>
+      <h3>{sem.title}</h3>
+      {sem.rows.map((row, ri) => (
+        <div class="cal-row reveal" style={`--i:${si * 4 + ri}`}>
+          <span class="when">TBD</span><span>{row}</span>
+        </div>
+      ))}
+    </div>
+  ))}
+
+</Layout>

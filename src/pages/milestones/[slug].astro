@@ -1,0 +1,30 @@
+---
+import { url } from '../../utils/url';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntryBySlug } from 'astro:content';
+
+export async function getStaticPaths() {
+  const milestones = await getCollection('milestones');
+  return milestones.map((m) => ({ params: { slug: m.slug } }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntryBySlug('milestones', slug as string);
+const { Content } = await entry.render();
+---
+
+<Layout title={`${entry.data.title} · ProSense`} activeTab="milestones">
+  <div class="detail">
+    <a class="back-link" href={url('/milestones')}>&larr; Back to milestones</a>
+    {entry.data.image && <img src={entry.data.image.src} alt={entry.data.title} />}
+    <h1>{entry.data.title}</h1>
+    <p class="meta">
+      {entry.data.phase && <>{entry.data.phase} · </>}
+      {entry.data.date && entry.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
+      {entry.data.link && <> · <a href={entry.data.link} target="_blank" rel="noopener">Related link</a></>}
+    </p>
+    <article class="reveal" style="--i:0">
+      <Content />
+    </article>
+  </div>
+</Layout>

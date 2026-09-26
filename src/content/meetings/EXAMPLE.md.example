@@ -1,0 +1,36 @@
+---
+title: "Meeting title"
+date: 2026-10-02
+location: "Discord"
+duration: "1h00"
+attendees: ["David Cálix", "António Videira", "Tiago Oliveira", "Diogo Ruivo", "Gabriel Riquito"]
+summary: "One sentence with the main outcome — shown in the meetings list."
+nextMeeting: 2026-10-09
+---
+
+## Topic discussed
+
+Write a short paragraph about what was discussed.
+
+## Tasks
+
+| Task | Owner |
+| --- | --- |
+| Something to do | Person's name |
+| Another thing | Person's name |
+
+## Decisions
+
+- First decision
+- Second decision
+
+<!--
+HOW TO USE
+1. Copy this file and rename it to the meeting date, e.g. 2026-10-02-meeting.md
+   (it must end in .md, not .md.example — the filename becomes the page URL).
+2. Fill in the fields between the --- lines. Dates are YYYY-MM-DD.
+   location, duration, attendees, summary and nextMeeting are optional: delete a line to hide it.
+3. Write the minutes below in Markdown: "## " makes a section heading, "- " a bullet,
+   and the | table | format above makes a table.
+4. Save — with `npm run dev` running the page updates on its own.
+-->

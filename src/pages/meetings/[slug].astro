@@ -1,0 +1,48 @@
+---
+import { url } from '../../utils/url';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntryBySlug } from 'astro:content';
+
+export async function getStaticPaths() {
+  const meetings = await getCollection('meetings');
+  return meetings.map((m) => ({ params: { slug: m.slug } }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntryBySlug('meetings', slug as string);
+const { Content } = await entry.render();
+const d = entry.data;
+const fmt = (date: Date) => date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Layout title={`${d.title} · ProSense`} activeTab="meetings">
+  <div class="detail">
+    <a class="back-link" href={url('/meetings')}>&larr; Back to meetings</a>
+    <h1>{d.title}</h1>
+    {d.summary && <p class="detail-lede">{d.summary}</p>}
+
+    <dl class="meet-facts">
+      <div><dt>Date</dt><dd>{fmt(d.date)}</dd></div>
+      {d.duration && <div><dt>Duration</dt><dd>{d.duration}</dd></div>}
+      {d.location && <div><dt>Location</dt><dd>{d.location}</dd></div>}
+    </dl>
+
+    {d.attendees && (
+      <div class="meet-attendees">
+        <span class="label">Attendees · {d.attendees.length}</span>
+        <ul>{d.attendees.map((a) => <li>{a}</li>)}</ul>
+      </div>
+    )}
+
+    <article class="prose reveal" style="--i:0">
+      <Content />
+    </article>
+
+    {d.nextMeeting && (
+      <div class="next-meeting reveal" style="--i:1">
+        <span class="label">Next meeting</span>
+        <strong>{fmt(d.nextMeeting)}</strong>
+      </div>
+    )}
+  </div>
+</Layout>

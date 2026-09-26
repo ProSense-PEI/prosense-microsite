@@ -1,0 +1,17 @@
+---
+title: "Milestone 1"
+phase: "Inception"
+date: 2026-11-15
+summary: "Inception phase — lifecycle objectives and project calendar."
+link: "https://drive.google.com/..."
+---
+
+Write the full milestone write-up here in Markdown: what was delivered,
+key decisions, screenshots (as regular Markdown images), links to the
+report, etc. This text renders on the milestone's own page.
+
+To publish this milestone for real:
+1. Duplicate this file next to it.
+2. Rename it to something like `milestone-1.md` (the file name becomes the page's URL: /milestones/milestone-1).
+3. Fill in the fields above and the text below.
+4. Delete the `.example` extension is not needed — just make sure the real file ends in `.md`, not `.md.example`.

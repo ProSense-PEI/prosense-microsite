@@ -1,0 +1,37 @@
+---
+import { url } from '../../utils/url';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const meetings = (await getCollection('meetings')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="Meetings · ProSense" activeTab="meetings">
+  <div class="panel-head">
+    <span class="eyebrow-label">Log</span>
+    <h2>Meetings</h2>
+    <p>Minutes from every team and supervisor meeting, newest first.</p>
+  </div>
+
+  {meetings.length === 0 ? (
+    <div class="empty-state">
+      <strong>No meetings logged yet</strong>
+      Minutes will appear here after each meeting.
+    </div>
+  ) : (
+    <div class="meet-log">
+      {meetings.map((m, i) => (
+        <a class="meet-row reveal" style={`--i:${i}`} href={url(`/meetings/${m.slug}`)}>
+          <span class="date">{m.data.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+          <div>
+            <h3>{m.data.title}</h3>
+            {m.data.summary && <p>{m.data.summary}</p>}
+            {m.data.attendees && <p>{m.data.attendees.join(', ')}</p>}
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</Layout>
