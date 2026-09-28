@@ -1,24 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const semesters = [
-  {
-    title: '1st semester',
-    rows: [
-      'Requirements gathering + system modelling (WP1–WP2)',
-      'Web platform foundations: auth, core data model (WP3 start)',
-      'Processing infrastructure + plugin architecture (WP4)',
-    ],
-  },
-  {
-    title: '2nd semester',
-    rows: [
-      'Computer-vision integration + mobile app (WP5–WP6)',
-      'Visualisation & analysis dashboard (WP7)',
-      'Testing, validation on MARE Box data (WP8)',
-      'Documentation + final delivery (WP9)',
-    ],
-  },
+// Rows render in order; `milestone` rows are highlighted in orange.
+const rows = [
+  { when: '29/09', milestone: 'M1', title: 'Lifecycle objectives and project calendar presented.' },
+  { when: '29/09 – 27/10', title: 'Requirements and domain', tasks: ['Requirements gathering (interviews / IEETA documents)', 'Actors and use cases', 'Functional and non-functional requirements', 'State of the art (detailed)'] },
+  { when: '27/10 – 24/11', title: 'Architecture and modeling', tasks: ['Deployment diagram', 'Domain model (ER)', 'UI mock-ups', 'Architecture skeleton (M2)'] },
+  { when: '24/11', milestone: 'M2', title: 'Architecture validated: requirements, domain model and mock-ups completed.' },
+  { when: '24/11 – 08/12', title: 'Core platform (backend)', tasks: ['Authentication and user management', 'Management of gyms, exercises and sessions (MDL)', 'Persistence layer (DAO)'] },
+  { when: '24/11 – 12/12', title: 'Plugin architecture', tasks: ['Orchestrator + asynchronous task queue', 'Pose estimation plugin integration (at least 2)', 'MDL engine integration'] },
+  { when: '24/11 – 12/12', title: 'Mobile app', tasks: ['Video capture and upload', 'Basic coach / athlete interface'] },
+  { when: '01/12 – 15/12', title: 'Web app and dashboard', tasks: ['Video and class upload', 'Results visualization', 'Accessibility and usability review (MS3)'] },
+  { when: 'Dec', milestone: 'MS3', title: 'Digital accessibility and usability review of the platform.' },
+  { when: '09/12 – 16/12', title: 'Testing and documentation', tasks: ['Unit and integration tests', 'Technical documentation and user manual', 'MVP presentation preparation (MS4)'] },
+  { when: '15–16/12', milestone: 'MS4', title: 'MVP presented to supervisors; peer evaluation.' },
 ];
 ---
 
@@ -26,18 +21,23 @@ const semesters = [
   <div class="panel-head">
     <span class="eyebrow-label">Schedule</span>
     <h2>Calendar</h2>
-    <p>Target sequencing of the nine work packages across the academic year. Exact dates to be agreed with the team and supervisors.</p>
+    <p>Modules and milestones for the 2026/2027 academic year. Milestones are highlighted in orange.</p>
   </div>
 
-  {semesters.map((sem, si) => (
-    <div class="term reveal" style={`--i:${si}`}>
-      <h3>{sem.title}</h3>
-      {sem.rows.map((row, ri) => (
-        <div class="cal-row reveal" style={`--i:${si * 4 + ri}`}>
-          <span class="when">TBD</span><span>{row}</span>
+  <div class="meet-log">
+    {rows.map((row, i) => (
+      <div class={`meet-row reveal${row.milestone ? ' is-milestone' : ''}`} style={`--i:${i}`}>
+        <span class="date">{row.when}</span>
+        <div>
+          <h3>{row.milestone && <span class="ms-tag">{row.milestone}</span>}{row.title}</h3>
+          {row.tasks && (
+            <ol class="cal-tasks">
+              {row.tasks.map((task) => <li>{task}</li>)}
+            </ol>
+          )}
         </div>
-      ))}
-    </div>
-  ))}
+      </div>
+    ))}
+  </div>
 
 </Layout>

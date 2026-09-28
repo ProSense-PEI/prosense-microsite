@@ -23,10 +23,10 @@ const links = {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
-  <link rel="icon" href={url('/favicon.ico')} sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href={url('/favicon-32.png')} />
-  <link rel="icon" type="image/png" sizes="192x192" href={url('/favicon-192.png')} />
-  <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+  <link rel="icon" href={url('/favicon.ico') + '?v=2'} sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href={url('/favicon-32.png') + '?v=2'} />
+  <link rel="icon" type="image/png" sizes="192x192" href={url('/favicon-192.png') + '?v=2'} />
+  <link rel="apple-touch-icon" href={url('/apple-touch-icon.png') + '?v=2'} />
   <script is:inline>
     try {
       if (localStorage.getItem('prosense-theme') === 'dark') {
@@ -63,39 +63,22 @@ const links = {
 
   <footer>
     <div class="wrap">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand"><img src={url('/logo.png')} alt="ProSense logo" /><strong>ProSense</strong></div>
-        </div>
-        <div>
-          <h4>Resources</h4>
-          <ul>
-            <li><a href={links.github} target="_blank" rel="noopener">GitHub</a></li>
-            {links.drive && <li><a href={links.drive} target="_blank" rel="noopener">Google Drive</a></li>}
-            <li><a href={links.jira} target="_blank" rel="noopener">Jira</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Team members</h4>
-          <ul>
-            <li>David Cálix</li>
-            <li>António Videira</li>
-            <li>Tiago Oliveira</li>
-            <li>Diogo Ruivo</li>
-            <li>Gabriel Riquito</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Project advisors</h4>
-          <ul>
-            <li><a href="https://www.ua.pt/en/p/16606785" target="_blank" rel="noopener">António J. R. Neves</a></li>
-            <li>Daniel Canedo</li>
-          </ul>
-        </div>
-      </div>
+      <div class="footer-brand"><img src={url('/logo.png')} alt="ProSense logo" /><strong>ProSense</strong></div>
       <div class="footer-bottom">
-        <span>ProSense · PEI 2026/2027 · Universidade de Aveiro</span>
-        <span>DETI</span>
+        <span>ProSense · PEI 2026/2027 · Universidade de Aveiro · DETI</span>
+        <div class="footer-icons">
+          <a href={links.github} target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.930 0-1.31.465-2.38 1.235-3.220-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+          {links.drive && (
+            <a href={links.drive} target="_blank" rel="noopener" aria-label="Google Drive" title="Google Drive">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.01 1.485c-2.082 0-3.754.02-3.743.047.01.02 1.708 3.001 3.774 6.62l3.76 6.574h3.76c2.081 0 3.753-.02 3.742-.047-.005-.02-1.708-3.001-3.775-6.62l-3.76-6.574zm-4.76 1.73a789.828 789.861 0 0 0-3.63 6.319L0 15.868l1.89 3.298 1.885 3.297 3.62-6.335 3.618-6.33-1.880-3.287C8.1 4.704 7.255 3.22 7.25 3.214zm2.259 12.653-.203.348c-.114.198-.96 1.672-1.88 3.287a423.930 423.948 0 0 1-1.698 2.970c-.01.026 3.24.042 7.222.042h7.244l1.796-3.157c.992-1.734 1.850-3.230 1.906-3.323l.104-.167h-7.249z"/></svg>
+            </a>
+          )}
+          <a href={links.jira} target="_blank" rel="noopener" aria-label="Jira" title="Jira">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </footer>

@@ -20,14 +20,21 @@ const team = [
   const found = ['.jpg', '.jpeg', '.png', '.webp'].find((ext) =>
     fs.existsSync(path.join(teamDir, m.file + ext))
   );
-  return { ...m, photo: found ? url(`/team/${m.file}${found}`) : null };
+  const foundLight = ['.jpg', '.jpeg', '.png', '.webp'].find((ext) =>
+    fs.existsSync(path.join(teamDir, m.file + '-light' + ext))
+  );
+  return {
+    ...m,
+    photo: found ? url(`/team/${m.file}${found}`) : null,
+    photoLight: foundLight ? url(`/team/${m.file}-light${foundLight}`) : null,
+  };
 });
 
 const features = [
   { title: 'MDL exercise configuration', text: 'Coaches describe each exercise once, in the Movement Description Language, and every session is scored the same way.' },
-  { title: 'Multi-algorithm pose estimation', text: 'MediaPipe and YOLO Pose run behind a plugin architecture, so new algorithms slot in without touching the core.' },
-  { title: 'Automatic performance metrics', text: 'Reps, work/rest time, cadence and range of motion, extracted straight from a smartphone video.' },
-  { title: 'Polar H10 integration', text: 'Sync heart-rate data with each session to relate external load to internal load.' },
+  { title: 'Multi-algorithm pose estimation', text: 'Pose estimation algorithms run behind a plugin architecture, so new algorithms slot in without touching the core.' },
+  { title: 'Automatic performance metrics', text: 'Reps, work/rest time, cadence and range of motion, extracted straight from video.' },
+  { title: 'HR sensors integration', text: 'Sync heart-rate data with each session to relate external load to internal load.' },
 ];
 
 const advisors = {
@@ -47,7 +54,7 @@ const advisors = {
       <p class="lede">ProSense turns everyday training video into objective performance data — reps, tempo, range of motion and more — without a single sensor strapped to the athlete.</p>
     </div>
     <div class="hero-photo hero-in" style="--i:1">
-      <img class="img-light" src={url('/hero-photo.png')} alt="Athlete mid-rep, tracked by pose estimation" />
+      <img class="img-light" src={url('/hero-photo.png')} alt="Athlete doing a pull-up, tracked by pose estimation" />
       <img class="img-dark" src={url('/hero-photo-dark.png')} alt="Athlete mid-rep, tracked by pose estimation" />
     </div>
   </section>
@@ -73,7 +80,12 @@ const advisors = {
     {team.map((m, i) => (
       <div class="member reveal" style={`--i:${i}`}>
         <div class="member-photo">
-          {m.photo ? (
+          {m.photo && m.photoLight ? (
+            <>
+              <img class="img-light" src={m.photoLight} alt={m.name} loading="lazy" />
+              <img class="img-dark" src={m.photo} alt={m.name} loading="lazy" />
+            </>
+          ) : m.photo ? (
             <img src={m.photo} alt={m.name} loading="lazy" />
           ) : (
             <span class="member-initials">{m.initials}</span>
