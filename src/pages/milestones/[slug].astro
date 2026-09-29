@@ -10,21 +10,72 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const entry = await getEntryBySlug('milestones', slug as string);
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
+const d = entry.data;
+
+// "## " headings in the Markdown become the section index on the side
+const toc = headings.filter((h) => h.depth === 2);
+
+// previous / next milestone, in date order
+const all = (await getCollection('milestones')).sort(
+  (a, b) => (a.data.date?.valueOf() ?? 0) - (b.data.date?.valueOf() ?? 0)
+);
+const pos = all.findIndex((m) => m.slug === entry.slug);
+const prev = all[pos - 1];
+const next = all[pos + 1];
 ---
 
-<Layout title={`${entry.data.title} · ProSense`} activeTab="milestones">
-  <div class="detail">
+<Layout title={`${d.code ? d.code + ' ' : ''}${d.title} · ProSense`} activeTab="milestones">
+  <div class="detail ms-detail">
     <a class="back-link" href={url('/milestones')}>&larr; Back to milestones</a>
-    {entry.data.image && <img src={entry.data.image.src} alt={entry.data.title} />}
-    <h1>{entry.data.title}</h1>
-    <p class="meta">
-      {entry.data.phase && <>{entry.data.phase} · </>}
-      {entry.data.date && entry.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
-      {entry.data.link && <> · <a href={entry.data.link} target="_blank" rel="noopener">Related link</a></>}
-    </p>
-    <article class="reveal" style="--i:0">
-      <Content />
-    </article>
+
+    <header class="ms-hero">
+      {d.code && <span class="ms-code" aria-hidden="true">{d.code}</span>}
+      <div>
+        <span class="eyebrow-label">
+          {d.phase ?? 'Milestone'}
+          {d.date && <> · {d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>}
+        </span>
+        <h1>{d.title}</h1>
+        <p class="detail-lede">{d.summary}</p>
+        {(d.pdf || d.link) && (
+          <div class="ms-actions">
+            {d.pdf && <a class="ms-btn" href={url(d.pdf)} target="_blank" rel="noopener">Slides (PDF)</a>}
+            {d.link && <a class="ms-btn ghost" href={d.link} target="_blank" rel="noopener">Related link</a>}
+          </div>
+        )}
+      </div>
+    </header>
+
+    {d.slides && (
+      <div class="ms-slides reveal" style="--i:0">
+        <iframe src={d.slides} title={`${d.title} presentation`} loading="lazy" allowfullscreen></iframe>
+      </div>
+    )}
+
+    <div class={`ms-layout${toc.length > 1 ? '' : ' no-toc'}`}>
+      {toc.length > 1 && (
+        <nav class="ms-toc" aria-label="On this page">
+          <span class="label">On this page</span>
+          <ol>
+            {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+          </ol>
+        </nav>
+      )}
+      <article class="prose ms-prose">
+        <Content />
+      </article>
+    </div>
+
+    {(prev || next) && (
+      <nav class="ms-pager" aria-label="Other milestones">
+        {prev ? (
+          <a href={url(`/milestones/${prev.slug}`)}><span>&larr; Previous</span><strong>{prev.data.code ?? ''} {prev.data.title}</strong></a>
+        ) : <span />}
+        {next && (
+          <a class="next" href={url(`/milestones/${next.slug}`)}><span>Next &rarr;</span><strong>{next.data.code ?? ''} {next.data.title}</strong></a>
+        )}
+      </nav>
+    )}
   </div>
 </Layout>

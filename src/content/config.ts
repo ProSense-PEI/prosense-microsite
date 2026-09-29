@@ -7,8 +7,11 @@ const milestones = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      code: z.string().optional(), // e.g. "M1" — shown as the big badge on the milestone page
       phase: z.string().optional(), // e.g. "Inception", "Elaboration"
       date: z.coerce.date().optional(),
+      slides: z.string().url().optional(), // Canva "Embed" link (Share → More → Embed), shown as an embedded deck
+      pdf: z.string().optional(), // slides as PDF in public/, e.g. /milestones/m1-slides.pdf
       summary: z.string(), // short blurb shown on the card
       image: image().optional(), // put the image file next to the .md file, e.g. ./milestone-1.png
       link: z.string().url().optional(), // optional external link (e.g. a report on Drive)

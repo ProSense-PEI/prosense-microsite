@@ -27,7 +27,7 @@ const milestones = (await getCollection('milestones')).sort(
           {m.data.image && <img src={m.data.image.src} alt={m.data.title} />}
           <div class="body">
             <div class="card-top-row">
-              <span class="index-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="index-num">{m.data.code ?? String(i + 1).padStart(2, '0')}</span>
               {m.data.phase && <span class="eyebrow">{m.data.phase}</span>}
             </div>
             <h3>{m.data.title}</h3>

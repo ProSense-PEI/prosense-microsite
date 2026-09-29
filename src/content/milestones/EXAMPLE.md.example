@@ -1,14 +1,22 @@
 ---
-title: "Milestone 1"
-phase: "Inception"
-date: 2026-11-15
-summary: "Inception phase — lifecycle objectives and project calendar."
-link: "https://drive.google.com/..."
+title: "Elaboration"
+code: "M2"
+phase: "Elaboration"
+date: 2026-11-24
+summary: "One or two sentences on what this milestone delivers — shown on the card and under the title."
+slides: "https://www.canva.com/design/.../view?embed"
+pdf: "/milestones/m2-slides.pdf"
 ---
 
-Write the full milestone write-up here in Markdown: what was delivered,
-key decisions, screenshots (as regular Markdown images), links to the
-report, etc. This text renders on the milestone's own page.
+## First section
+
+Write the milestone here in Markdown. Every "## " heading becomes a numbered
+section and an entry in the side index. See 01-inception.md for the ready-made
+blocks (personas, goals, MVP, state-of-the-art table, architecture, timeline).
+
+Optional fields: code (big badge, e.g. M2), slides (Canva: Share → More → Embed,
+copy the link from src="..."), pdf (put the file in public/milestones/),
+link (any related link), image (card picture).
 
 To publish this milestone for real:
 1. Duplicate this file next to it.

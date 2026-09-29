@@ -19,7 +19,8 @@ fields at the top and write the minutes below in Markdown. It appears on
 ## Adding a milestone
 
 Same idea in `src/content/milestones/` — see `EXAMPLE.md.example` there for
-the fields (title, phase, date, summary, link, optional `image`).
+the fields (title, code, phase, date, summary, slides, pdf, link, optional `image`).
+Images and slide PDFs for a milestone go in `public/milestones/`.
 
 ## Team photos
 
