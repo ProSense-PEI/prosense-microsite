@@ -11,10 +11,10 @@ const milestones = (await getCollection('milestones')).sort(
 
 const teamDir = path.resolve('./public/team');
 const team = [
-  { name: 'David Cálix', initials: 'DC', file: 'david-calix' },
-  { name: 'António Videira', initials: 'AV', file: 'antonio-videira' },
-  { name: 'Tiago Oliveira', initials: 'TO', file: 'tiago-oliveira' },
-  { name: 'Diogo Ruivo', initials: 'DR', file: 'diogo-ruivo' },
+  { name: 'David Cálix', initials: 'DC', file: 'david-calix', href: 'https://www.linkedin.com/in/david-c%C3%A1lix-22461a411/' },
+  { name: 'António Videira', initials: 'AV', file: 'antonio-videira', href: 'https://www.linkedin.com/in/ant%C3%B3nio-videira-17314535a/' },
+  { name: 'Tiago Oliveira', initials: 'TO', file: 'tiago-oliveira', href: 'https://www.linkedin.com/in/tiago-oliveira-142946359/' },
+  { name: 'Diogo Ruivo', initials: 'DR', file: 'diogo-ruivo', href: 'https://www.linkedin.com/in/diogo-ruivo-76b95b304/' },
   { name: 'Gabriel Riquito', initials: 'GR', file: 'gabriel-riquito' },
 ].map((m) => {
   const found = ['.jpg', '.jpeg', '.png', '.webp'].find((ext) =>
@@ -40,9 +40,12 @@ const features = [
 const advisors = {
   supervisors: [
     { name: 'António J. R. Neves', href: 'https://www.ua.pt/en/p/16606785' },
-    { name: 'Daniel Canedo' },
+    { name: 'Daniel Canedo', href: 'https://www.ua.pt/en/p/80333882' },
   ],
-  collaborators: [{ name: 'Lúcia Sousa' }, { name: 'Pedro Santos' }],
+  collaborators: [
+    { name: 'Lúcia Sousa', href: 'https://www.ua.pt/en/p/80589599' },
+    { name: 'Pedro Santos' },
+  ],
 };
 
 ---
@@ -91,7 +94,9 @@ const advisors = {
             <span class="member-initials">{m.initials}</span>
           )}
         </div>
-        <h3 class="member-name">{m.name}</h3>
+        <h3 class="member-name">
+          {m.href ? <a href={m.href} target="_blank" rel="noopener">{m.name}</a> : m.name}
+        </h3>
       </div>
     ))}
   </div>
@@ -142,7 +147,13 @@ const advisors = {
     <div class="adv-col reveal" style="--i:1">
       <h4>Collaborators</h4>
       <ul>
-        {advisors.collaborators.map((p) => <li>{p.name}</li>)}
+        {advisors.collaborators.map((p) =>
+          p.href ? (
+            <li><a href={p.href} target="_blank" rel="noopener">{p.name}</a></li>
+          ) : (
+            <li>{p.name}</li>
+          )
+        )}
       </ul>
     </div>
   </div>
