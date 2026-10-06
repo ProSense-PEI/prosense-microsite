@@ -106,13 +106,17 @@ const links = {
         var io = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
+              if (!entry.isIntersecting) return;
+              // tall blocks (e.g. long meeting notes) never reach 35% visible,
+              // so also reveal once they fill a good part of the viewport
+              var vh = entry.rootBounds ? entry.rootBounds.height : window.innerHeight;
+              if (entry.intersectionRatio >= 0.35 || entry.intersectionRect.height >= vh * 0.25) {
                 entry.target.classList.add('lit');
                 io.unobserve(entry.target);
               }
             });
           },
-          { threshold: 0.35, rootMargin: '0px 0px -8% 0px' }
+          { threshold: [0, 0.05, 0.1, 0.2, 0.35], rootMargin: '0px 0px -8% 0px' }
         );
         els.forEach(function (el) { io.observe(el); });
       }
