@@ -2,6 +2,8 @@
 import { url } from '../../utils/url';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, getEntryBySlug } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export async function getStaticPaths() {
   const milestones = await getCollection('milestones');
@@ -23,6 +25,22 @@ const all = (await getCollection('milestones')).sort(
 const pos = all.findIndex((m) => m.slug === entry.slug);
 const prev = all[pos - 1];
 const next = all[pos + 1];
+
+// Every PDF dropped in public/documentation/{slug}/ is listed in the
+// "Documentation" tab, sorted by file name (prefix with 01-, 02-… to order them).
+const docsDir = path.join(process.cwd(), 'public', 'documentation', entry.slug);
+const docs = (fs.existsSync(docsDir) ? fs.readdirSync(docsDir) : [])
+  .filter((f) => f.toLowerCase().endsWith('.pdf'))
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  .map((file) => {
+    const kb = Math.max(1, Math.round(fs.statSync(path.join(docsDir, file)).size * 2 ** -10));
+    return {
+      href: url(`/documentation/${entry.slug}/${encodeURIComponent(file)}`),
+      file,
+      name: file.replace(/\.pdf$/i, '').replace(/^\d+[-_ ]+/, '').replace(/[-_]+/g, ' '),
+      size: kb >= 1024 ? (kb * 2 ** -10).toFixed(1) + ' MB' : kb + ' KB',
+    };
+  });
 ---
 
 <Layout title={`${d.code ? d.code + ' ' : ''}${d.title} · ProSense`} activeTab="milestones">
@@ -47,25 +65,55 @@ const next = all[pos + 1];
       </div>
     </header>
 
-    {d.slides && (
-      <div class="ms-slides reveal" style="--i:0">
-        <iframe src={d.slides} title={`${d.title} presentation`} loading="lazy" allowfullscreen></iframe>
-      </div>
-    )}
-
-    <div class={`ms-layout${toc.length > 1 ? '' : ' no-toc'}`}>
-      {toc.length > 1 && (
-        <nav class="ms-toc" aria-label="On this page">
-          <span class="label">On this page</span>
-          <ol>
-            {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
-          </ol>
-        </nav>
-      )}
-      <article class="prose ms-prose">
-        <Content />
-      </article>
+    <div class="ms-tabs" role="tablist" aria-label="Milestone sections">
+      <a id="tab-overview" class="active" href="#overview" role="tab" aria-selected="true" aria-controls="panel-overview">Overview</a>
+      <a id="tab-documentation" href="#documentation" role="tab" aria-selected="false" aria-controls="panel-documentation">
+        Documentation <span class="count">{docs.length}</span>
+      </a>
     </div>
+
+    <section id="panel-overview" class="ms-panel" role="tabpanel" aria-labelledby="tab-overview">
+      {d.slides && (
+        <div class="ms-slides reveal" style="--i:0">
+          <iframe src={d.slides} title={`${d.title} presentation`} loading="lazy" allowfullscreen></iframe>
+        </div>
+      )}
+
+      <div class={`ms-layout${toc.length > 1 ? '' : ' no-toc'}`}>
+        {toc.length > 1 && (
+          <nav class="ms-toc" aria-label="On this page">
+            <span class="label">On this page</span>
+            <ol>
+              {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ol>
+          </nav>
+        )}
+        <article class="prose ms-prose">
+          <Content />
+        </article>
+      </div>
+    </section>
+
+    <section id="panel-documentation" class="ms-panel" role="tabpanel" aria-labelledby="tab-documentation" hidden>
+      {docs.length === 0 ? (
+        <div class="empty-state">
+          <strong>No documents yet</strong>
+          PDFs added to <code>public/documentation/{entry.slug}/</code> appear here.
+        </div>
+      ) : (
+        <ul class="ms-docs">
+          {docs.map((doc) => (
+            <li>
+              <a class="ms-doc-open" href={doc.href} target="_blank" rel="noopener">
+                <span class="ms-doc-icon" aria-hidden="true">PDF</span>
+                <span class="ms-doc-text"><strong>{doc.name}</strong><small>{doc.file} · {doc.size}</small></span>
+              </a>
+              <a class="ms-btn ghost" href={doc.href} download={doc.file}>Download</a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
 
     {(prev || next) && (
       <nav class="ms-pager" aria-label="Other milestones">
@@ -79,3 +127,28 @@ const next = all[pos + 1];
     )}
   </div>
 </Layout>
+
+<script is:inline>
+  (function () {
+    var tabs = document.querySelectorAll('.ms-tabs [role="tab"]');
+    function show(name) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('href') === '#' + name;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+    }
+    // #documentation opens the docs tab; any other hash (overview, section anchors) shows the overview
+    function sync() { show(location.hash === '#documentation' ? 'documentation' : 'overview'); }
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.replaceState(null, '', t.getAttribute('href'));
+        sync();
+      });
+    });
+    window.addEventListener('hashchange', sync);
+    sync();
+  })();
+</script>

@@ -22,6 +22,14 @@ Same idea in `src/content/milestones/` — see `EXAMPLE.md.example` there for
 the fields (title, code, phase, date, summary, slides, pdf, link, optional `image`).
 Images and slide PDFs for a milestone go in `public/milestones/`.
 
+### Milestone documentation
+
+Each milestone page has a **Documentation** tab that lists every PDF in
+`public/documentation/<milestone-file-name>/`, e.g. `public/documentation/01-inception/`
+for `01-inception.md`. Just drop the PDFs there; no code changes needed.
+Files are sorted by name, so prefix them with `01-`, `02-`… to set the order
+(the prefix is hidden in the list, and `-`/`_` become spaces).
+
 ## Team photos
 
 Put a **cut-out PNG with a transparent background** (head to waist) in
