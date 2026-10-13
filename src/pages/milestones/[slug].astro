@@ -52,7 +52,7 @@ const docs = (fs.existsSync(docsDir) ? fs.readdirSync(docsDir) : [])
       <div>
         <span class="eyebrow-label">
           {d.phase ?? 'Milestone'}
-          {d.date && <> · {d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>}
+          {(d.dateLabel || d.date) && <> · {d.dateLabel ?? d.date?.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</>}
         </span>
         <h1>{d.title}</h1>
         <p class="detail-lede">{d.summary}</p>

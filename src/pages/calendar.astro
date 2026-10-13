@@ -2,11 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 
 // Rows render in order; `milestone` rows are highlighted in orange.
+// `when` can be a list of dates, shown one per line (e.g. a milestone presented on two days).
 const rows = [
   { when: '29/09', milestone: 'M1', title: 'Lifecycle objectives and project calendar presented.' },
-  { when: '29/09 – 27/10', title: 'Requirements and domain', tasks: ['Requirements gathering (interviews / IEETA documents)', 'Actors and use cases', 'Functional and non-functional requirements', 'State of the art (detailed)'] },
-  { when: '27/10 – 24/11', title: 'Architecture and modeling', tasks: ['Deployment diagram', 'Domain model (ER)', 'UI mock-ups', 'Architecture skeleton (M2)'] },
-  { when: '24/11', milestone: 'M2', title: 'Architecture validated: requirements, domain model and mock-ups completed.' },
+  { when: '29/09 – 05/10', title: 'M1 feedback and adjustments', tasks: ['Generic, plugin-based architecture', 'Single-camera setup', 'Physiotherapist and researcher personas (home physiotherapy)', 'Group classes in the state of the art'] },
+  { when: '05/10 – 12/10', title: 'Requirements and architecture', tasks: ['Requirements gathering', 'State of the art (detailed)', 'Actors, use cases and user stories', 'Functional and non-functional requirements', 'Assumptions and dependencies', 'Architecture and deployment diagram', 'UML use case diagrams and flowcharts', 'UI mock-ups'] },
+  { when: '12/10 – 13/10', title: 'M2 presentation preparation', tasks: ['Slide order and presenters', 'Documentation tab on the microsite'] },
+  { when: ['13/10', '20/10'], milestone: 'M2', title: 'Requirements, architecture and mock-ups presented.' },
+  { when: '13/10 – 24/11', title: 'Domain and architecture skeleton', tasks: ['Domain model (ER)', 'Architecture skeleton'] },
   { when: '24/11 – 08/12', title: 'Core platform (backend)', tasks: ['Authentication and user management', 'Management of gyms, exercises and sessions (MDL)', 'Persistence layer (DAO)'] },
   { when: '24/11 – 12/12', title: 'Plugin architecture', tasks: ['Orchestrator + asynchronous task queue', 'Pose estimation plugin integration (at least 2)', 'MDL engine integration'] },
   { when: '24/11 – 12/12', title: 'Mobile app', tasks: ['Video capture and upload', 'Basic coach / athlete interface'] },
@@ -27,7 +30,7 @@ const rows = [
   <div class="meet-log">
     {rows.map((row, i) => (
       <div class={`meet-row reveal${row.milestone ? ' is-milestone' : ''}`} style={`--i:${i}`}>
-        <span class="date">{row.when}</span>
+        <span class="date">{[row.when].flat().map((d, j) => <>{j > 0 && <br />}{d}</>)}</span>
         <div>
           <h3>{row.milestone && <span class="ms-tag">{row.milestone}</span>}{row.title}</h3>
           {row.tasks && (

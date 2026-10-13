@@ -150,7 +150,7 @@ We compared ProSense with the tools functional training boxes already use.
 
 <div class="ms-timeline">
   <div class="now"><span class="when">29/09/2026</span><strong>M1</strong><p>Lifecycle objectives and project calendar presented.</p></div>
-  <div><span class="when">24/11/2026</span><strong>M2</strong><p>Architecture validated: requirements, domain model and mock-ups completed.</p></div>
+  <div><span class="when">13 & 20/10/2026</span><strong>M2</strong><p>Requirements, architecture and mock-ups presented.</p></div>
   <div><span class="when">Dec 2026</span><strong>M3</strong><p>Digital accessibility and usability review of the platform.</p></div>
   <div><span class="when">15–16/12/2026</span><strong>M4</strong><p>MVP presented to the supervisors; peer evaluation.</p></div>
 </div>

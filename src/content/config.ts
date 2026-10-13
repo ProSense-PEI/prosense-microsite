@@ -10,6 +10,7 @@ const milestones = defineCollection({
       code: z.string().optional(), // e.g. "M1" — shown as the big badge on the milestone page
       phase: z.string().optional(), // e.g. "Inception", "Elaboration"
       date: z.coerce.date().optional(),
+      dateLabel: z.string().optional(), // overrides how the date is shown, e.g. "13 and 20 October 2026" for a two-day milestone
       slides: z.string().url().optional(), // Canva "Embed" link (Share → More → Embed), shown as an embedded deck
       pdf: z.string().optional(), // slides as PDF in public/, e.g. /milestones/m1-slides.pdf
       summary: z.string(), // short blurb shown on the card
