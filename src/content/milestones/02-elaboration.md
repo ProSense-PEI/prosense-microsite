@@ -206,45 +206,15 @@ What happens when an athlete uploads a video, from the request to the saved metr
 
 ## Mock-ups
 
-The first screens of the web app, one set per profile. Click a screen to open it full size.
-
-<figure class="ms-figure ms-shot">
-  <a href="/milestones/m2-mockups/coach-session.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/coach-session.jpg" width="1280" height="923" alt="Coach view of a back squat session: video with the skeleton overlay, metrics and timed feedback" loading="lazy" /></a>
-  <figcaption>The coach reviewing a session: video with the skeleton, metrics and feedback at a point in the video.</figcaption>
-</figure>
-
-<div class="ms-mockups">
-  <h3>Athlete</h3>
-  <div>
-    <a href="/milestones/m2-mockups/login.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/login.jpg" width="1280" height="923" alt="Sign-in screen" loading="lazy" /><span>Sign in</span></a>
-    <a href="/milestones/m2-mockups/athlete-dashboard.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/athlete-dashboard.jpg" width="1280" height="923" alt="Athlete dashboard" loading="lazy" /><span>Dashboard</span></a>
-    <a href="/milestones/m2-mockups/athlete-upload.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/athlete-upload.jpg" width="1280" height="923" alt="Athlete video upload" loading="lazy" /><span>Upload video</span></a>
-    <a href="/milestones/m2-mockups/athlete-feedback.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/athlete-feedback.jpg" width="1280" height="923" alt="Athlete feedback list" loading="lazy" /><span>Feedback</span></a>
+<a class="mockups-card" href="https://www.figma.com/proto/jrXrNne2MgUcDilrZG2kxZ/Untitled?node-id=7-15&p=f&t=yyMPK1dC5fiixUAx-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=7%3A15" target="_blank" rel="noopener">
+  <div class="mockups-text">
+    <span class="mockups-eyebrow">Figma prototype</span>
+    <h3>Click through ProSense before it's built.</h3>
+    <p>Sign in as an athlete, coach, physiotherapist, researcher or admin and explore each role's screens in our interactive prototype.</p>
+    <span class="ms-btn">View interactive prototype &rarr;</span>
   </div>
-  <h3>PT / Coach</h3>
-  <div>
-    <a href="/milestones/m2-mockups/coach-dashboard.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/coach-dashboard.jpg" width="1280" height="923" alt="Coach dashboard" loading="lazy" /><span>Dashboard</span></a>
-    <a href="/milestones/m2-mockups/coach-exercises.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/coach-exercises.jpg" width="1280" height="923" alt="Coach exercise catalogue" loading="lazy" /><span>Exercises</span></a>
-    <a href="/milestones/m2-mockups/coach-new-exercise.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/coach-new-exercise.jpg" width="1280" height="923" alt="New exercise editor with movement phases" loading="lazy" /><span>New exercise (MDL)</span></a>
-    <a href="/milestones/m2-mockups/coach-athletes.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/coach-athletes.jpg" width="1280" height="923" alt="Coach list of athletes" loading="lazy" /><span>Athletes</span></a>
+  <div class="mockups-art" aria-hidden="true">
+    <span class="mk-screen s1"><i></i><i></i><i></i></span>
+    <span class="mk-screen s2"><i></i><i></i><i></i></span>
   </div>
-  <h3>Physiotherapist</h3>
-  <div>
-    <a href="/milestones/m2-mockups/physio-dashboard.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/physio-dashboard.jpg" width="1280" height="923" alt="Physiotherapist dashboard" loading="lazy" /><span>Dashboard</span></a>
-    <a href="/milestones/m2-mockups/physio-prescribe.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/physio-prescribe.jpg" width="1280" height="923" alt="Prescribe exercise form" loading="lazy" /><span>Prescribe exercise</span></a>
-    <a href="/milestones/m2-mockups/physio-patients.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/physio-patients.jpg" width="1280" height="923" alt="Physiotherapist list of patients" loading="lazy" /><span>Patients</span></a>
-  </div>
-  <h3>Researcher</h3>
-  <div>
-    <a href="/milestones/m2-mockups/researcher-dashboard.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/researcher-dashboard.jpg" width="1280" height="923" alt="Researcher dashboard" loading="lazy" /><span>Dashboard</span></a>
-    <a href="/milestones/m2-mockups/researcher-import.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/researcher-import.jpg" width="1280" height="923" alt="Import dataset form" loading="lazy" /><span>Import dataset</span></a>
-    <a href="/milestones/m2-mockups/researcher-dataset.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/researcher-dataset.jpg" width="1280" height="923" alt="Imported dataset with its videos" loading="lazy" /><span>Dataset imported</span></a>
-  </div>
-  <h3>Admin</h3>
-  <div>
-    <a href="/milestones/m2-mockups/admin-status.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/admin-status.jpg" width="1280" height="923" alt="System status screen" loading="lazy" /><span>System status</span></a>
-    <a href="/milestones/m2-mockups/admin-groups.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/admin-groups.jpg" width="1280" height="923" alt="Groups and assignments" loading="lazy" /><span>Groups</span></a>
-    <a href="/milestones/m2-mockups/admin-new-group.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/admin-new-group.jpg" width="1280" height="923" alt="Create group form" loading="lazy" /><span>New group</span></a>
-    <a href="/milestones/m2-mockups/admin-group-created.jpg" target="_blank" rel="noopener"><img src="/milestones/m2-mockups/admin-group-created.jpg" width="1280" height="923" alt="Group created with its members" loading="lazy" /><span>Group created</span></a>
-  </div>
-</div>
+</a>

@@ -157,6 +157,9 @@ main.wrap{--main-top:clamp(36px,4.5vw,56px);display:block;flex:1 0 auto;width:10
 .mk-screen.s2 i:first-child{background:var(--blue);}
 .mockups-card:hover .mk-screen.s1{transform:rotate(-6deg) translate(-6px,-4px);}
 .mockups-card:hover .mk-screen.s2{transform:rotate(5deg) translate(6px,4px);}
+.prose .mockups-card{margin:16px 0 28px;}
+.prose .mockups-text h3{margin:8px 0 0;font-size:clamp(1.35rem,2.2vw,1.75rem);}
+.prose .mockups-text p{margin:12px 0 22px;}
 @media (max-width:720px){.mockups-card{grid-template-columns:1fr;}.mockups-art{display:none;}}
 
 .features-grid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
