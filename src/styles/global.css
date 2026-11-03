@@ -546,3 +546,18 @@ footer{border-top:1px solid var(--grey-line);padding:24px 0 20px;color:var(--tex
 .ms-doc-open:hover strong{color:var(--orange);}
 .ms-doc-text small{color:var(--text-dim);font-size:0.8rem;overflow-wrap:anywhere;}
 @media (max-width:520px){.ms-docs .ms-btn{display:none;}}
+
+/* M3: sub-headings inside a section, and the accessibility problem cards */
+.ms-prose > h3{margin:36px 0 14px;font-size:1.05rem;}
+.ms-prose .ms-split{margin-top:20px;}
+.ms-problems{display:flex;flex-direction:column;gap:20px;}
+.ms-problems .ms-problem{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:start;padding:20px;border:1px solid var(--grey-line);border-radius:var(--radius-lg);}
+.ms-problems .ms-problem > a{display:block;padding:8px;border-radius:var(--radius-md);background:#fff;border:1px solid var(--grey-line);transition:box-shadow .2s ease;}
+.ms-problems .ms-problem > a:hover{box-shadow:var(--shadow-soft);}
+.ms-problems img{width:100%;height:auto;margin:0;border-radius:8px;}
+.ms-problems h3{margin:10px 0 6px;font-size:1.05rem;}
+.ms-problems p{margin:0;color:var(--text-dim);font-size:0.92rem;line-height:1.55;}
+.ms-problems dl{margin:14px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:0.88rem;line-height:1.5;}
+.ms-problems dt{font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--orange);padding-top:2px;}
+.ms-problems dd{margin:0;}
+@media (max-width:760px){.ms-problems .ms-problem{grid-template-columns:1fr;}}
